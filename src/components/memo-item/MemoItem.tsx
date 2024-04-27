@@ -4,21 +4,22 @@ import { Button } from "../button";
 import styles from "./MemoItem.module.scss";
 
 type MemoItemProps = {
-  name: string;
-  id: number;
+  memoTest: MemoTest;
 };
 
-export const MemoItem = ({ id, name }: MemoItemProps) => {
+export const MemoItem = ({ memoTest }: MemoItemProps) => {
   const router = useRouter();
 
   const onClickHandler = () => {
-    router.push(`/memo/${id}`);
+    router.push(`/memo/${memoTest.id}`);
   };
 
   return (
     <div className={styles.memoItem}>
-      <h3 className={styles["memoItem-title"]}>{name}</h3>
-      <p className={styles["memoItem-score"]}>Highest score: 500</p>
+      <h3 className={styles["memoItem-title"]}>{memoTest.name}</h3>
+      <p className={styles["memoItem-score"]}>
+        Highest score: {memoTest.highest_score}
+      </p>
       <Button onClick={onClickHandler}>Start</Button>
     </div>
   );

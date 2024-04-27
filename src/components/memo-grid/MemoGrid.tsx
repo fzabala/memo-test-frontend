@@ -9,24 +9,17 @@ type MemoGridProps = {
   cards?: Card[];
 };
 
-type MemoTestType = {
-  id: number;
-  name: string;
-};
-
 export const MemoGrid = ({}: MemoGridProps) => {
-  const { data, loading, error } = useQuery(GET_MEMO_TESTS);
+  const { data, loading, error } = useQuery<{ getMemoTests: MemoTest[] }>(
+    GET_MEMO_TESTS
+  );
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
 
   return (
     <div className={styles.memoGrid}>
-      {data.getMemoTests.map((memoTest: MemoTestType) => (
-        <MemoItem
-          key={`memo-item-${memoTest.id}`}
-          name={memoTest.name}
-          id={memoTest.id}
-        />
+      {data?.getMemoTests.map((memoTest) => (
+        <MemoItem key={`memo-item-${memoTest.id}`} memoTest={memoTest} />
       ))}
     </div>
   );
