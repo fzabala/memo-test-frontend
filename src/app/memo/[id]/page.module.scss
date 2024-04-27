@@ -3,27 +3,4 @@
   flex-direction: column;
   padding: 2rem;
   align-items: center;
-
-  &-grid {
-    max-width: 1176px;
-    width: 100%;
-    gap: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 120px);
-    justify-content: center;
-  }
-
-  &-title {
-    font-size: 6rem;
-    font-family: var(--font-family);
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--element-background-end-rgb))
-      )
-      rgb(var(--element-background-start-rgb));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 3rem;
-  }
 }

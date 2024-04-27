@@ -8,3 +8,16 @@ export const GET_MEMO_TESTS = gql`
     }
   }
 `;
+
+export const GET_MEMO_TEST_BY_ID = gql`
+  query GetMemoTestById($id: ID!) {
+    getMemoTestById(id: $id) {
+      id
+      name
+      images {
+        id
+        url
+      }
+    }
+  }
+`;

@@ -1,4 +1,6 @@
 declare type Card = {
   id: number;
-  image: string;
+  url: string;
+  flipped: boolean;
+  selected: boolean;
 };

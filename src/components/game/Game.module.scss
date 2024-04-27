@@ -1,0 +1,8 @@
+.memoGame {
+  max-width: 1176px;
+  width: 100%;
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  justify-content: center;
+}

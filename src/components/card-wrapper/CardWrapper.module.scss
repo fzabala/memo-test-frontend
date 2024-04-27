@@ -14,7 +14,7 @@
   }
 
   &--selected {
-    transform: scale(1.25);
+    transform: scale(1.25) rotateY(180deg);
     border-color: rgb(var(--cell-border-color-alt));
   }
 

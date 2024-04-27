@@ -10,6 +10,7 @@ type MemoGridProps = {
 };
 
 type MemoTestType = {
+  id: number;
   name: string;
 };
 
@@ -21,7 +22,11 @@ export const MemoGrid = ({}: MemoGridProps) => {
   return (
     <div className={styles.memoGrid}>
       {data.getMemoTests.map((memoTest: MemoTestType) => (
-        <MemoItem name={memoTest.name} />
+        <MemoItem
+          key={`memo-item-${memoTest.id}`}
+          name={memoTest.name}
+          id={memoTest.id}
+        />
       ))}
     </div>
   );
