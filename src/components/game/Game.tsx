@@ -1,7 +1,12 @@
 "use client";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_GAME_SESSION_BY_ID, GET_MEMO_TEST_BY_ID } from "@/graphql";
-import { CardWrapper } from "@/components";
+import {
+  COMPLETE_SESSION,
+  CREATE_GAME_SESSION_BY_ID,
+  GET_MEMO_TEST_BY_ID,
+  UPDATE_RETRIES_IN_SESSION,
+} from "@/graphql";
+import { CardWrapper, GameOver } from "@/components";
 import styles from "./Game.module.scss";
 import { useLocalStorage } from "usehooks-ts";
 import { STORAGE_SESSION_GAME } from "@/constants";
@@ -10,10 +15,9 @@ import { shuffle } from "../../utils";
 
 type GameProps = {
   id: number;
-  onGameOver: () => void;
 };
 
-export const Game = ({ id, onGameOver }: GameProps) => {
+export const Game = ({ id }: GameProps) => {
   const [gameSession, setGameSession] = useState<GameSession | undefined>(
     undefined
   );
@@ -34,8 +38,36 @@ export const Game = ({ id, onGameOver }: GameProps) => {
       data: gameSessionData,
       loading: gameSessionLoading,
     },
-  ] = useMutation<GameSession>(CREATE_GAME_SESSION_BY_ID, {
-    variables: { gameId: id },
+  ] = useMutation<{ createGameSession: GameSession }>(
+    CREATE_GAME_SESSION_BY_ID,
+    {
+      variables: { gameId: id },
+    }
+  );
+
+  const [
+    updateRetriesInSession,
+    {
+      error: updateRetriesInSessionError,
+      data: updateRetriesInSessionData,
+      loading: updateRetriesInSessionLoading,
+    },
+  ] = useMutation<{ updateRetriesInSession: GameSession }>(
+    UPDATE_RETRIES_IN_SESSION,
+    {
+      variables: { id: parseInt(gameSession?.id as string) },
+    }
+  );
+
+  const [
+    completeSession,
+    {
+      error: completeSessionError,
+      data: completeSessionData,
+      loading: completeSessionLoading,
+    },
+  ] = useMutation<{ completeSession: GameSession }>(COMPLETE_SESSION, {
+    variables: { id: parseInt(gameSession?.id as string) },
   });
 
   const {
@@ -49,7 +81,7 @@ export const Game = ({ id, onGameOver }: GameProps) => {
 
   useEffect(() => {
     createGameSession().then((session) => {
-      setGameSession(session.data as GameSession);
+      setGameSession(session.data?.createGameSession as GameSession);
     });
   }, [value]);
 
@@ -76,9 +108,11 @@ export const Game = ({ id, onGameOver }: GameProps) => {
       updatedCards[index] = { ...selectedCard, selected: true, flipped: true };
       setCards(updatedCards);
 
-      setTimeout(() => {
-        handleCardMatch(index, selectedCardIndex);
-      }, 500);
+      updateRetriesInSession().then(() => {
+        setTimeout(() => {
+          handleCardMatch(index, selectedCardIndex);
+        }, 500);
+      });
     }
   };
 
@@ -87,7 +121,9 @@ export const Game = ({ id, onGameOver }: GameProps) => {
       const isGameOver = cards.filter((card) => !card.flipped).length === 0;
       if (isGameOver) {
         setTimeout(() => {
-          onGameOver();
+          completeSession().then((session) => {
+            setGameSession(session.data?.completeSession as GameSession);
+          });
         }, 1000);
       }
     }
@@ -115,6 +151,15 @@ export const Game = ({ id, onGameOver }: GameProps) => {
 
   if (loading || !gameSession) return <p>Loading...</p>;
   if (error) return <p>Error! {error.message}</p>;
+
+  if (gameSession.state === "COMPLETED") {
+    return (
+      <GameOver
+        title="Well done!"
+        text={`Your score is ${gameSession.score}`}
+      />
+    );
+  }
 
   return (
     <div className={styles.memoGame}>
