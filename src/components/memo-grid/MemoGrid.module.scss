@@ -1,0 +1,19 @@
+.memoGrid {
+  max-width: 1176px;
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .memoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .memoGrid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

@@ -1,0 +1,24 @@
+.memoItem {
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 1rem;
+  gap: 1.5rem;
+  border: 0.5rem solid rgb(var(--cell-border-color));
+  align-items: center;
+
+  &-title {
+    font-size: 2rem;
+    font-family: var(--font-family-extrude);
+  }
+
+  &-score {
+    font-size: 1.5rem;
+  }
+}

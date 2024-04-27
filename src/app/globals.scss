@@ -1,0 +1,47 @@
+@import "reset-css";
+
+@font-face {
+  font-family: "Gamer Station Extrude";
+  src: url("../assets/fonts/gamer-station/Gamer\ Station\ Extrude.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Gamer Station";
+  src: url("../assets/fonts/gamer-station/Gamer\ Station.ttf")
+    format("truetype");
+}
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 35, 121, 231;
+  --background-end-rgb: 53, 153, 240;
+
+  --element-foreground-rgb: 255, 255, 255;
+  --element-background-start-rgb: 243, 168, 0;
+  --element-background-end-rgb: 245, 202, 20;
+  --element-contrast: 156, 64, 46;
+
+  --cell-background: 10, 162, 178;
+  --cell-border-color: 243, 168, 0;
+  --cell-border-color-alt: 245, 202, 20;
+
+  --font-family: "Gamer Station", system-ui;
+  --font-family-extrude: "Gamer Station Extrude", system-ui;
+}
+
+html,
+body {
+  max-width: 100vw;
+  font-family: var(--font-family);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: url(../assets/img/bg.jpg) center / contain;
+  backdrop-filter: brightness(0.2);
+}
+
+main {
+  min-height: 100vh;
+}

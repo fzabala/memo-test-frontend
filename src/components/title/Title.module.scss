@@ -1,0 +1,14 @@
+.title {
+  font-size: 4rem;
+  font-family: var(--font-family);
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--element-background-end-rgb))
+    )
+    rgb(var(--element-background-start-rgb));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  text-align: center;
+}
