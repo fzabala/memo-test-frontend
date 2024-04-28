@@ -5,6 +5,7 @@ declare type GameSession = {
   state: GameSessionState;
   memo_test_id: number;
   score?: number;
+  cardsGameSession: CardGameSession[];
 };
 
 declare type GameSessionState = "STARTED" | "COMPLETED";

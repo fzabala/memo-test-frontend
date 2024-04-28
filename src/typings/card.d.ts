@@ -1,6 +1,6 @@
-declare type Card = {
-  id: number;
-  url: string;
+declare type CardGameSession = {
+  id: string;
+  image: MemoTestImage;
   flipped: boolean;
   selected: boolean;
 };

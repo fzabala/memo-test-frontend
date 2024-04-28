@@ -6,7 +6,7 @@ import { MemoItem } from "../memo-item";
 
 type MemoGridProps = {
   id?: number;
-  cards?: Card[];
+  cards?: CardGameSession[];
 };
 
 export const MemoGrid = ({}: MemoGridProps) => {
