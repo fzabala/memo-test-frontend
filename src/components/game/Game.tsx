@@ -17,6 +17,7 @@ type GameProps = {
 };
 
 export const Game = ({ id }: GameProps) => {
+  const [isAnimating, setIsAnimating] = useState(false);
   const [gameSession, setGameSession] = useState<GameSession | undefined>(
     undefined
   );
@@ -97,7 +98,7 @@ export const Game = ({ id }: GameProps) => {
 
   const onClickCardHandler = (index: number) => {
     const selectedCard = cards[index];
-    if (selectedCard.flipped) return false;
+    if (selectedCard.flipped || isAnimating) return false;
     const updatedCards = [...cards];
     updatedCards[index] = { ...selectedCard, selected: true, flipped: true };
     setCards(updatedCards);
@@ -111,8 +112,10 @@ export const Game = ({ id }: GameProps) => {
 
   useEffect(() => {
     if (updatedCard) {
+      setIsAnimating(true);
       updateProgress().then((session) => {
         setTimeout(() => {
+          setIsAnimating(false);
           setGameSession(session.data?.updateProgress as GameSession);
         }, 500);
       });
@@ -129,8 +132,10 @@ export const Game = ({ id }: GameProps) => {
       );
       const isGameOver = cards.filter((card) => !card.flipped).length === 0;
       if (isGameOver) {
+        setIsAnimating(true);
         setTimeout(() => {
           completeSession().then((session) => {
+            setIsAnimating(false);
             setGameSession(session.data?.completeSession as GameSession);
           });
         }, 1000);
@@ -138,28 +143,6 @@ export const Game = ({ id }: GameProps) => {
       }
     }
   }, [cards, gameSession]);
-
-  const handleCardMatch = (index: number, selectedCardIndex: number) => {
-    const updatedCards = [...cards];
-    const isMatch = cards[index].image.id === cards[selectedCardIndex].image.id;
-
-    updatedCards[index] = {
-      ...updatedCards[index],
-      selected: false,
-      flipped: isMatch,
-    };
-
-    updatedCards[selectedCardIndex] = {
-      ...updatedCards[selectedCardIndex],
-      selected: false,
-      flipped: isMatch,
-    };
-
-    setUpdatedCard(updatedCards[selectedCardIndex]);
-
-    setCards(updatedCards);
-    setSelectedCardIndex(undefined);
-  };
 
   const loading = memoTestLoading || gameSessionLoading;
   const error = memoTestError || gameSessionError || gameSessionError;
