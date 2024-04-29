@@ -6,7 +6,13 @@ import {
   GET_MEMO_TEST_BY_ID,
   UPDATE_PROGRESS,
 } from "@/graphql";
-import { CardWrapper, GameOver, Loading, Title } from "@/components";
+import {
+  CardWrapper,
+  ErrorAlert,
+  GameOver,
+  Loading,
+  Title,
+} from "@/components";
 import styles from "./Game.module.scss";
 import { useLocalStorage } from "usehooks-ts";
 import { STORAGE_SESSION_GAME } from "@/constants";
@@ -162,8 +168,7 @@ export const Game = ({ id }: GameProps) => {
   const error = memoTestError || gameSessionError || gameSessionError;
 
   if (loading || !gameSession) return <Loading />;
-
-  if (error) return <p>Error! {error.message}</p>;
+  if (error) return <ErrorAlert title="Oops :(" text={error.message} />;
 
   if (gameSession.state === "COMPLETED") {
     return (

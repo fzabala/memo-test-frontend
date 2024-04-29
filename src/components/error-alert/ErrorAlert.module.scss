@@ -1,0 +1,23 @@
+.errorAlert {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  border: 0.5rem solid rgb(var(--cell-border-color));
+  transform: scale(1);
+  padding: 2rem 3rem;
+  color: white;
+  align-items: center;
+  gap: 1.5rem;
+
+  &-title {
+    font-size: 3rem;
+    text-align: center;
+    font-family: var(--font-family-extrude);
+  }
+
+  &-text {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
