@@ -105,23 +105,22 @@ export const Game = ({ id }: GameProps) => {
     if (typeof selectedCardIndex === "undefined") {
       setSelectedCardIndex(index);
     } else if (selectedCardIndex !== index) {
-      setTimeout(() => {
-        handleCardMatch(index, selectedCardIndex);
-      }, 500);
     }
     setUpdatedCard(updatedCards[index]);
   };
 
   useEffect(() => {
     if (updatedCard) {
-      updateProgress()
-        .then((a) => console.log({ a }))
-        .catch((e) => console.log({ e }));
+      updateProgress().then((session) => {
+        setTimeout(() => {
+          setGameSession(session.data?.updateProgress as GameSession);
+        }, 500);
+      });
     }
   }, [updatedCard]);
 
   useEffect(() => {
-    if (cards.length > 0) {
+    if (cards.length > 0 && gameSession?.state !== "COMPLETED") {
       const selectedCardIndex = cards.findIndex(
         (card) => card.selected && card.flipped
       );
@@ -181,6 +180,7 @@ export const Game = ({ id }: GameProps) => {
     <div className={styles.memoGame}>
       {cards.map((card, index) => (
         <CardWrapper
+          number={index + 1}
           key={`card-wrapper-${index}`}
           onClick={() => onClickCardHandler(index)}
           card={card}

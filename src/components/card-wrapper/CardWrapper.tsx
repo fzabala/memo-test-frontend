@@ -5,11 +5,12 @@ import Image from "next/image";
 import marioImage from "../../assets/img/mario.png";
 
 type CardProps = {
-  card: Card;
+  number: number;
+  card: CardGameSession;
   onClick: () => void;
 };
 
-export const CardWrapper = ({ card, onClick }: CardProps) => {
+export const CardWrapper = ({ card, onClick, number }: CardProps) => {
   const onClickHandler = () => {
     onClick();
   };
@@ -21,7 +22,7 @@ export const CardWrapper = ({ card, onClick }: CardProps) => {
       } ${card.flipped ? styles["card--flipped"] : null}`}
       onClick={onClickHandler}
     >
-      <div className={styles["card-background"]}>?</div>
+      <div className={styles["card-background"]}>{number}</div>
       <div className={styles["card-front"]}>
         <Image alt="" src={marioImage} fill priority={false} sizes="100vw" />
       </div>
