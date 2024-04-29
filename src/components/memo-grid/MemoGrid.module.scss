@@ -1,9 +1,11 @@
 .memoGrid {
   max-width: 1176px;
   width: 100%;
-  display: grid;
+  display: flex;
+  justify-content: center;
   gap: 2rem;
   grid-template-columns: 1fr;
+  flex-wrap: wrap;
 }
 
 @media (min-width: 768px) {

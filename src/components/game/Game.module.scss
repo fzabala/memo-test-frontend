@@ -2,7 +2,7 @@
   max-width: 1176px;
   width: 100%;
   gap: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }

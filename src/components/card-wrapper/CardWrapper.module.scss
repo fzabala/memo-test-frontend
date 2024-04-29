@@ -1,11 +1,12 @@
 .card {
-  height: 150px;
-  width: 150px;
+  height: 80px;
+  width: 80px;
+  font-size: 3rem;
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
-  border: 0.5rem solid rgb(var(--cell-border-color));
+  border: 0.375rem solid rgb(var(--cell-border-color));
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   padding: 1rem;
   transform-style: preserve-3d;
@@ -42,16 +43,29 @@
         rgb(var(--background-end-rgb))
       )
       rgb(var(--background-start-rgb));
-    font-size: 4rem;
     font-family: var(--font-family-extrude);
   }
 
   &-front {
     background-color: gray;
     transform: rotateY(180deg);
+    border-radius: 0.625rem;
+    overflow: hidden;
 
     img {
       object-fit: cover;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    height: 150px;
+    width: 150px;
+    font-size: 5rem;
+    border: 0.5rem solid rgb(var(--cell-border-color));
+    &-front {
+      border-radius: 0.5rem;
     }
   }
 }
