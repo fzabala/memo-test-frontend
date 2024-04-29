@@ -5,7 +5,6 @@ import styles from "./MemoGrid.module.scss";
 import { MemoItem, Loading, ErrorAlert } from "@/components";
 import { useLocalStorage } from "usehooks-ts";
 import { STORAGE_SESSION_GAME } from "@/constants";
-import { useEffect } from "react";
 
 type MemoGridProps = {
   id?: number;
@@ -13,16 +12,10 @@ type MemoGridProps = {
 };
 
 export const MemoGrid = ({}: MemoGridProps) => {
-  const [sessionValue, setSessionValue, removeSessionValue] = useLocalStorage<
-    number[]
-  >(STORAGE_SESSION_GAME, []);
+  const [sessionValue] = useLocalStorage<number[]>(STORAGE_SESSION_GAME, []);
   const { data, loading, error } = useQuery<{ getMemoTests: MemoTest[] }>(
     GET_MEMO_TESTS
   );
-
-  useEffect(() => {
-    console.log({ value: sessionValue });
-  }, [sessionValue]);
 
   if (loading) return <Loading />;
   if (error) return <ErrorAlert title="Oops :(" text={error.message} />;

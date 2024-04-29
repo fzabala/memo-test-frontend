@@ -144,14 +144,12 @@ export const Game = ({ id }: GameProps) => {
       if (isGameOver) {
         setIsAnimating(true);
 
-        console.log("before complete session", { sessionValue });
         const updatedSessionValue = [...sessionValue];
         const gameSessionIndex = updatedSessionValue.indexOf(
           parseInt(gameSession.id)
         );
         updatedSessionValue.splice(gameSessionIndex, 1);
         setSessionValue(updatedSessionValue);
-        console.log("after complete session", { updatedSessionValue });
 
         setTimeout(() => {
           completeSession().then((session) => {
