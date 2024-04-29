@@ -1,8 +1,15 @@
 .memoGame {
   max-width: 1176px;
   width: 100%;
-  gap: 3rem;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+
+  &-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

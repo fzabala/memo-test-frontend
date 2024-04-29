@@ -6,7 +6,7 @@ import {
   GET_MEMO_TEST_BY_ID,
   UPDATE_PROGRESS,
 } from "@/graphql";
-import { CardWrapper, GameOver } from "@/components";
+import { CardWrapper, GameOver, Title } from "@/components";
 import styles from "./Game.module.scss";
 import { useLocalStorage } from "usehooks-ts";
 import { STORAGE_SESSION_GAME } from "@/constants";
@@ -161,14 +161,20 @@ export const Game = ({ id }: GameProps) => {
 
   return (
     <div className={styles.memoGame}>
-      {cards.map((card, index) => (
-        <CardWrapper
-          number={index + 1}
-          key={`card-wrapper-${index}`}
-          onClick={() => onClickCardHandler(index)}
-          card={card}
-        />
-      ))}
+      <Title
+        text={`Game #${memoTestData?.getMemoTestById.id}`}
+        altText={memoTestData?.getMemoTestById.name}
+      />
+      <div className={styles["memoGame-wrapper"]}>
+        {cards.map((card, index) => (
+          <CardWrapper
+            number={index + 1}
+            key={`card-wrapper-${index}`}
+            onClick={() => onClickCardHandler(index)}
+            card={card}
+          />
+        ))}
+      </div>
     </div>
   );
 };
