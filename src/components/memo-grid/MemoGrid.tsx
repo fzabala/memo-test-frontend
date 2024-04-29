@@ -2,7 +2,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_MEMO_TESTS } from "../../graphql";
 import styles from "./MemoGrid.module.scss";
-import { MemoItem } from "../memo-item";
+import { MemoItem, Loading } from "@/components";
 
 type MemoGridProps = {
   id?: number;
@@ -13,7 +13,8 @@ export const MemoGrid = ({}: MemoGridProps) => {
   const { data, loading, error } = useQuery<{ getMemoTests: MemoTest[] }>(
     GET_MEMO_TESTS
   );
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return <Loading />;
   if (error) return <p>Error! {error.message}</p>;
 
   return (

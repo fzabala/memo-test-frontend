@@ -3,8 +3,8 @@
   text-align: center;
 
   &-main {
-    line-height: 5rem;
-    font-size: 4rem;
+    line-height: 4rem;
+    font-size: 3rem;
     background: linear-gradient(
         to bottom,
         transparent,
@@ -17,6 +17,19 @@
 
   &-altText {
     font-family: var(--font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    &-main {
+      line-height: 5rem;
+      font-size: 4rem;
+    }
+
+    &-altText {
+      font-size: 2rem;
+    }
   }
 }

@@ -6,7 +6,7 @@ import {
   GET_MEMO_TEST_BY_ID,
   UPDATE_PROGRESS,
 } from "@/graphql";
-import { CardWrapper, GameOver, Title } from "@/components";
+import { CardWrapper, GameOver, Loading, Title } from "@/components";
 import styles from "./Game.module.scss";
 import { useLocalStorage } from "usehooks-ts";
 import { STORAGE_SESSION_GAME } from "@/constants";
@@ -147,7 +147,8 @@ export const Game = ({ id }: GameProps) => {
   const loading = memoTestLoading || gameSessionLoading;
   const error = memoTestError || gameSessionError || gameSessionError;
 
-  if (loading || !gameSession) return <p>Loading...</p>;
+  if (loading || !gameSession) return <Loading />;
+
   if (error) return <p>Error! {error.message}</p>;
 
   if (gameSession.state === "COMPLETED") {
