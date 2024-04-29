@@ -18,8 +18,8 @@ export const CardWrapper = ({ card, onClick, number }: CardProps) => {
   return (
     <div
       className={`${styles.card} ${
-        card.selected ? styles["card--selected"] : null
-      } ${card.flipped ? styles["card--flipped"] : null}`}
+        card.selected ? styles["card--selected"] : ""
+      } ${card.flipped ? styles["card--flipped"] : ""}`}
       onClick={onClickHandler}
     >
       <div className={styles["card-background"]}>{number}</div>
