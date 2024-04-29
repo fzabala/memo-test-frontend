@@ -90,15 +90,18 @@ export const Game = ({ id }: GameProps) => {
   });
 
   useEffect(() => {
-    createGameSession().then((session) => {
-      setGameSession(session.data?.createGameSession as GameSession);
-      const updatedSessionValue = new Set([
-        ...sessionValue,
-        parseInt(session.data?.createGameSession.id as string),
-      ]);
-      setSessionValue(Array.from(updatedSessionValue));
-    });
+    createGameSession()
+      .then((session) => {
+        setGameSession(session.data?.createGameSession as GameSession);
+        const updatedSessionValue = new Set([
+          ...sessionValue,
+          parseInt(session.data?.createGameSession.id as string),
+        ]);
+        setSessionValue(Array.from(updatedSessionValue));
+      })
+      .catch((e) => console.log({ e }));
   }, []);
+  console.log({ gameSessionError });
 
   useEffect(() => {
     if (gameSession) {
@@ -163,7 +166,7 @@ export const Game = ({ id }: GameProps) => {
   }, [cards, gameSession]);
 
   const loading = memoTestLoading || gameSessionLoading;
-  const error = memoTestError || gameSessionError || gameSessionError;
+  const error = memoTestError || completeSessionError || gameSessionError;
 
   if (loading || !gameSession) return <Loading />;
   if (error) return <ErrorAlert title="Oops :(" text={error.message} />;
@@ -189,16 +192,21 @@ export const Game = ({ id }: GameProps) => {
         text={`Game #${memoTestData?.getMemoTestById.id}`}
         altText={memoTestData?.getMemoTestById.name}
       />
-      <div className={styles["memoGame-wrapper"]}>
-        {cards.map((card, index) => (
-          <CardWrapper
-            number={index + 1}
-            key={`card-wrapper-${index}`}
-            onClick={() => onClickCardHandler(index)}
-            card={card}
-          />
-        ))}
-      </div>
+      {cards.length === 0 && (
+        <ErrorAlert title="Oops :(" text="No cards for this game" />
+      )}
+      {cards.length > 0 && (
+        <div className={styles["memoGame-wrapper"]}>
+          {cards.map((card, index) => (
+            <CardWrapper
+              number={index + 1}
+              key={`card-wrapper-${index}`}
+              onClick={() => onClickCardHandler(index)}
+              card={card}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -11,7 +11,7 @@ type ErrorAlertProps = {
 export const ErrorAlert = ({ text, title }: ErrorAlertProps) => {
   const router = useRouter();
   const onClickHandler = () => {
-    router.refresh();
+    router.replace("/");
   };
 
   return (
@@ -19,7 +19,7 @@ export const ErrorAlert = ({ text, title }: ErrorAlertProps) => {
       <p className={styles["errorAlert-title"]}>{title}</p>
       <p className={styles["errorAlert-text"]}>{text}</p>
       <div className={styles["errorAlert-buttons"]}>
-        <Button onClick={onClickHandler}>Reload</Button>
+        <Button onClick={onClickHandler}>Go home</Button>
       </div>
     </div>
   );
