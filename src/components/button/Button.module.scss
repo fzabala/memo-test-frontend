@@ -1,30 +1,121 @@
-.button {
-  border: 1px solid rgb(var(--element-contrast));
-  border-radius: 0.75rem;
-  font-size: 1.5rem;
-  color: rgb(var(--alt-foreground));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--element-background-end-rgb))
-    )
-    rgb(var(--element-background-start-rgb));
-  padding: 1rem 3rem;
-  font-family: var(--font-family);
-  box-shadow: 0 0.25rem 0 rgb(var(--element-contrast));
-  text-shadow: 1px 1px 1px rgb(var(--element-contrast));
+@mixin button-size($border-radius, $font-size, $padding) {
+  border-radius: $border-radius;
+  font-size: $font-size;
+  padding: $padding;
+}
 
-  &:hover {
-    cursor: pointer;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--element-background-start-rgb))
-      )
-      rgb(var(--element-background-end-rgb));
-  }
+@mixin background-gradient($start-color, $end-color) {
+  background: linear-gradient(to bottom, transparent, $start-color) $end-color;
+}
+
+@mixin border-and-shadow($color) {
+  border-color: $color;
+  box-shadow: 0 0.25rem 0 $color;
+}
+
+.button {
+  font-family: var(--font-family);
+  color: rgb(var(--alt-foreground));
+
   &:active {
     transform: translateY(0.25rem);
     box-shadow: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    &:active {
+      transform: none;
+    }
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  &-size {
+    &--large {
+      @include button-size(0.875rem, 2.5rem, 1.25rem 4rem);
+    }
+    &--medium {
+      @include button-size(0.75rem, 1.5rem, 1rem 3rem);
+    }
+    &--small {
+      @include button-size(0.5rem, 1rem, 0.5rem 1.25rem);
+    }
+  }
+
+  &-variant {
+    &--primary,
+    &--secondary {
+      border: 1px solid;
+    }
+
+    &--primary {
+      @include background-gradient(
+        rgb(var(--element-background-start-rgb)),
+        rgb(var(--element-background-end-rgb))
+      );
+      @include border-and-shadow(rgb(var(--element-contrast)));
+      text-shadow: 1px 1px 1px rgb(var(--element-contrast));
+
+      &:hover {
+        @include background-gradient(
+          rgb(var(--element-background-end-rgb)),
+          rgb(var(--element-background-start-rgb))
+        );
+      }
+
+      &:disabled {
+        @include background-gradient(
+          rgb(var(--element-background-start-rgb-disabled)),
+          rgb(var(--element-background-end-rgb-disabled))
+        );
+        @include border-and-shadow(rgb(var(--element-contrast-disabled)));
+
+        &:hover {
+          @include background-gradient(
+            rgb(var(--element-background-start-rgb-disabled)),
+            rgb(var(--element-background-end-rgb-disabled))
+          );
+        }
+      }
+    }
+
+    &--secondary {
+      @include background-gradient(
+        rgb(var(--element-secondary-background-start-rgb)),
+        rgb(var(--element-secondary-background-end-rgb))
+      );
+      @include border-and-shadow(rgb(var(--element-secondary-contrast)));
+      text-shadow: 1px 1px 1px rgb(var(--element-secondary-contrast));
+
+      &:hover {
+        @include background-gradient(
+          rgb(var(--element-secondary-background-end-rgb)),
+          rgb(var(--element-secondary-background-start-rgb))
+        );
+      }
+
+      &:disabled {
+        @include background-gradient(
+          rgb(var(--element-secondary-background-start-rgb-disabled)),
+          rgb(var(--element-secondary-background-end-rgb-disabled))
+        );
+        @include border-and-shadow(
+          rgb(var(--element-secondary-contrast-disabled))
+        );
+
+        &:hover {
+          @include background-gradient(
+            rgb(var(--element-secondary-background-start-rgb-disabled)),
+            rgb(var(--element-secondary-background-end-rgb-disabled))
+          );
+        }
+      }
+    }
   }
 }

@@ -21,6 +21,17 @@
   --element-background-start-rgb: 243, 168, 0;
   --element-background-end-rgb: 245, 202, 20;
   --element-contrast: 156, 64, 46;
+  --element-background-start-rgb-disabled: 248, 203, 102;
+  --element-background-end-rgb-disabled: 249, 223, 114;
+  --element-contrast-disabled: 196, 140, 130;
+
+  --element-secondary-foreground-rgb: 255, 255, 255;
+  --element-secondary-background-start-rgb: 168, 0, 243;
+  --element-secondary-background-end-rgb: 202, 20, 245;
+  --element-secondary-contrast: 64, 46, 156;
+  --element-secondary-background-start-rgb-disabled: 203, 102, 248;
+  --element-secondary-background-end-rgb-disabled: 223, 114, 249;
+  --element-secondary-contrast-disabled: 140, 130, 196;
 
   --cell-background: 10, 162, 178;
   --cell-border-color: 243, 168, 0;
