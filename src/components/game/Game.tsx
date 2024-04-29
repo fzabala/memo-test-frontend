@@ -5,7 +5,6 @@ import {
   CREATE_GAME_SESSION_BY_ID,
   GET_MEMO_TEST_BY_ID,
   UPDATE_PROGRESS,
-  UPDATE_RETRIES_IN_SESSION,
 } from "@/graphql";
 import { CardWrapper, GameOver } from "@/components";
 import styles from "./Game.module.scss";
@@ -46,20 +45,6 @@ export const Game = ({ id }: GameProps) => {
     CREATE_GAME_SESSION_BY_ID,
     {
       variables: { gameId: id },
-    }
-  );
-
-  const [
-    updateRetriesInSession,
-    {
-      error: updateRetriesInSessionError,
-      data: updateRetriesInSessionData,
-      loading: updateRetriesInSessionLoading,
-    },
-  ] = useMutation<{ updateRetriesInSession: GameSession }>(
-    UPDATE_RETRIES_IN_SESSION,
-    {
-      variables: { id: parseInt(gameSession?.id as string) },
     }
   );
 
@@ -120,11 +105,9 @@ export const Game = ({ id }: GameProps) => {
     if (typeof selectedCardIndex === "undefined") {
       setSelectedCardIndex(index);
     } else if (selectedCardIndex !== index) {
-      updateRetriesInSession().then(() => {
-        setTimeout(() => {
-          handleCardMatch(index, selectedCardIndex);
-        }, 500);
-      });
+      setTimeout(() => {
+        handleCardMatch(index, selectedCardIndex);
+      }, 500);
     }
     setUpdatedCard(updatedCards[index]);
   };
