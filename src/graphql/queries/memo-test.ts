@@ -5,6 +5,9 @@ export const GET_MEMO_TESTS = gql`
     getMemoTests {
       id
       name
+      active_game_session {
+        id
+      }
       highest_score
     }
   }

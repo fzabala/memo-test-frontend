@@ -1,11 +1,12 @@
 declare type MemoTest = {
-  id: number;
+  id: string;
   name: string;
   images: MemoTestImage[];
+  active_game_session?: GameSession;
   highest_score: number;
 };
 
 declare type MemoTestImage = {
-  id: number;
+  id: string;
   url: string;
 };

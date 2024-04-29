@@ -5,9 +5,10 @@ import styles from "./MemoItem.module.scss";
 
 type MemoItemProps = {
   memoTest: MemoTest;
+  inProgress: boolean;
 };
 
-export const MemoItem = ({ memoTest }: MemoItemProps) => {
+export const MemoItem = ({ memoTest, inProgress }: MemoItemProps) => {
   const router = useRouter();
 
   const onClickHandler = () => {
@@ -20,7 +21,9 @@ export const MemoItem = ({ memoTest }: MemoItemProps) => {
       <p className={styles["memoItem-score"]}>
         Highest score: {memoTest.highest_score}
       </p>
-      <Button onClick={onClickHandler}>Start</Button>
+      <Button onClick={onClickHandler}>
+        {inProgress ? "Continue" : "Start"}
+      </Button>
     </div>
   );
 };

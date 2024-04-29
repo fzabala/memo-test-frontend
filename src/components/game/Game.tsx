@@ -21,10 +21,9 @@ export const Game = ({ id }: GameProps) => {
   const [gameSession, setGameSession] = useState<GameSession | undefined>(
     undefined
   );
-  const [value, setValue, removeValue] = useLocalStorage<number[]>(
-    STORAGE_SESSION_GAME,
-    []
-  );
+  const [sessionValue, setSessionValue, removeSessionValue] = useLocalStorage<
+    number[]
+  >(STORAGE_SESSION_GAME, []);
 
   const [cards, setCards] = useState<CardGameSession[]>([]);
   const [updatedCard, setUpdatedCard] = useState<CardGameSession | undefined>(
@@ -87,8 +86,13 @@ export const Game = ({ id }: GameProps) => {
   useEffect(() => {
     createGameSession().then((session) => {
       setGameSession(session.data?.createGameSession as GameSession);
+      const updatedSessionValue = new Set([
+        ...sessionValue,
+        parseInt(session.data?.createGameSession.id as string),
+      ]);
+      setSessionValue(Array.from(updatedSessionValue));
     });
-  }, [value]);
+  }, []);
 
   useEffect(() => {
     if (gameSession) {
@@ -123,7 +127,7 @@ export const Game = ({ id }: GameProps) => {
   }, [updatedCard]);
 
   useEffect(() => {
-    if (cards.length > 0 && gameSession?.state !== "COMPLETED") {
+    if (cards.length > 0 && gameSession && gameSession.state !== "COMPLETED") {
       const selectedCardIndex = cards.findIndex(
         (card) => card.selected && card.flipped
       );
@@ -133,6 +137,16 @@ export const Game = ({ id }: GameProps) => {
       const isGameOver = cards.filter((card) => !card.flipped).length === 0;
       if (isGameOver) {
         setIsAnimating(true);
+
+        console.log("before complete session", { sessionValue });
+        const updatedSessionValue = [...sessionValue];
+        const gameSessionIndex = updatedSessionValue.indexOf(
+          parseInt(gameSession.id)
+        );
+        updatedSessionValue.splice(gameSessionIndex, 1);
+        setSessionValue(updatedSessionValue);
+        console.log("after complete session", { updatedSessionValue });
+
         setTimeout(() => {
           completeSession().then((session) => {
             setIsAnimating(false);
@@ -153,10 +167,16 @@ export const Game = ({ id }: GameProps) => {
 
   if (gameSession.state === "COMPLETED") {
     return (
-      <GameOver
-        title="Well done!"
-        text={`Your score is ${gameSession.score}`}
-      />
+      <>
+        <Title
+          text={`Game #${memoTestData?.getMemoTestById.id}`}
+          altText={memoTestData?.getMemoTestById.name}
+        />
+        <GameOver
+          title="Well done!"
+          text={`Your score is ${gameSession.score}`}
+        />
+      </>
     );
   }
 
