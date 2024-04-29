@@ -12,8 +12,8 @@ https://github.com/fzabala/memo-test-backend
 ### How to run it?
 1. Open a terminal and clone this repo using `git clone https://github.com/fzabala/memo-test-frontend`
 2. Create your `.env.local` file based on `env.example`
-3. Navigate to the folder project and install the dependencies `npm install`
+3. Navigate to the project folder and install the dependencies `npm install`
 4. Run the project with `npm run dev`
 
 ### Anything else?
-Yes, also you can see the storybook by running `npm run storybook`
+Yes, you can also view the storybook by running `npm run storybook`
