@@ -14,6 +14,7 @@ export const CREATE_GAME_SESSION_BY_ID = gql`
         selected
         image {
           id
+          url
         }
       }
     }
@@ -35,6 +36,7 @@ export const COMPLETE_SESSION = gql`
         selected
         image {
           id
+          url
         }
       }
     }
@@ -56,6 +58,7 @@ export const UPDATE_PROGRESS = gql`
         selected
         image {
           id
+          url
         }
       }
     }

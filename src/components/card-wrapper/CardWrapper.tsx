@@ -24,7 +24,13 @@ export const CardWrapper = ({ card, onClick, number }: CardProps) => {
     >
       <div className={styles["card-background"]}>{number}</div>
       <div className={styles["card-front"]}>
-        <Image alt="" src={marioImage} fill priority={false} sizes="100vw" />
+        <Image
+          alt=""
+          src={card.image.url}
+          fill
+          priority={false}
+          sizes="100vw"
+        />
       </div>
     </div>
   );
