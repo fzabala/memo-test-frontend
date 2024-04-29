@@ -17,3 +17,6 @@ https://github.com/fzabala/memo-test-backend
 
 ### Anything else?
 Yes, you can also view the storybook by running `npm run storybook`
+
+### Run tests?
+Just tun `npm run test`

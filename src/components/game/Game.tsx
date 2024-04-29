@@ -101,7 +101,6 @@ export const Game = ({ id }: GameProps) => {
       })
       .catch((e) => console.log({ e }));
   }, []);
-  console.log({ gameSessionError });
 
   useEffect(() => {
     if (gameSession) {
@@ -189,7 +188,7 @@ export const Game = ({ id }: GameProps) => {
   return (
     <div className={styles.memoGame}>
       <Title
-        text={`Game #${memoTestData?.getMemoTestById.id}`}
+        text={`Game #${id}`}
         altText={memoTestData?.getMemoTestById.name}
       />
       {cards.length === 0 && (
