@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Button } from "../button";
+import { Button } from "@/components";
 import styles from "./MemoItem.module.scss";
 
 type MemoItemProps = {

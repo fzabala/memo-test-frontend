@@ -2,7 +2,6 @@
 import React from "react";
 import styles from "./CardWrapper.module.scss";
 import Image from "next/image";
-import marioImage from "../../assets/img/mario.png";
 
 type CardProps = {
   number: number;

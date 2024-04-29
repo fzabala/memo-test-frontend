@@ -1,4 +1,4 @@
-import { MemoGrid, Title } from "../components";
+import { MemoGrid, Title } from "@/components";
 import styles from "./page.module.scss";
 
 export default function Home() {

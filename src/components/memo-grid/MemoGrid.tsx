@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@apollo/client";
-import { GET_MEMO_TESTS } from "../../graphql";
+import { GET_MEMO_TESTS } from "@/graphql";
 import styles from "./MemoGrid.module.scss";
 import { MemoItem, Loading } from "@/components";
 
