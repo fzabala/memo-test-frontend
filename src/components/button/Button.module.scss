@@ -36,6 +36,10 @@
     }
   }
 
+  &--wide {
+    width: 100%;
+  }
+
   &-size {
     &--large {
       @include button-size(0.875rem, 2.5rem, 1.25rem 4rem);

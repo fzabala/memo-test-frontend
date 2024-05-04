@@ -21,8 +21,11 @@ export const MemoItem = ({ memoTest, inProgress }: MemoItemProps) => {
       <p className={styles["memoItem-score"]}>
         Highest score: {memoTest.highest_score}
       </p>
-      <Button onClick={onClickHandler}>
-        {inProgress ? "Continue" : "Start"}
+      <Button wide onClick={onClickHandler}>
+        Start
+      </Button>
+      <Button wide disabled={!inProgress} onClick={onClickHandler}>
+        Continue
       </Button>
     </div>
   );
