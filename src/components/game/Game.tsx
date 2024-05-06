@@ -27,9 +27,10 @@ export const Game = ({ id }: GameProps) => {
   const [gameSession, setGameSession] = useState<GameSession | undefined>(
     undefined
   );
-  const [sessionValue, setSessionValue, removeSessionValue] = useLocalStorage<
-    number[]
-  >(STORAGE_SESSION_GAME, []);
+  const [sessionValue, setSessionValue] = useLocalStorage<number[]>(
+    STORAGE_SESSION_GAME,
+    []
+  );
 
   const [cards, setCards] = useState<CardGameSession[]>([]);
   const [updatedCard, setUpdatedCard] = useState<CardGameSession | undefined>(
@@ -150,8 +151,10 @@ export const Game = ({ id }: GameProps) => {
         const gameSessionIndex = updatedSessionValue.indexOf(
           parseInt(gameSession.id)
         );
-        updatedSessionValue.splice(gameSessionIndex, 1);
-        setSessionValue(updatedSessionValue);
+        if (gameSessionIndex !== -1) {
+          updatedSessionValue.splice(gameSessionIndex, 1);
+          setSessionValue(updatedSessionValue);
+        }
 
         setTimeout(() => {
           completeSession().then((session) => {

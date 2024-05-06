@@ -27,18 +27,23 @@ export const MemoGrid = ({}: MemoGridProps) => {
 
   return (
     <div className={styles.memoGrid}>
-      {data?.getMemoTests.map((memoTest) => (
-        <MemoItem
-          inProgress={
-            typeof memoTest.active_game_session !== "undefined" &&
-            memoTest.active_game_session &&
-            sessionValue.indexOf(parseInt(memoTest.active_game_session.id)) !==
-              -1
-          }
-          key={`memo-item-${memoTest.id}`}
-          memoTest={memoTest}
-        />
-      ))}
+      {data?.getMemoTests.map((memoTest) => {
+        let inProgressSession = undefined;
+
+        if (typeof memoTest.active_game_session !== "undefined") {
+          inProgressSession = sessionValue.find(
+            (e) => e === parseInt(memoTest.active_game_session?.id as string)
+          );
+        }
+
+        return (
+          <MemoItem
+            inProgressSession={inProgressSession}
+            key={`memo-item-${memoTest.id}`}
+            memoTest={memoTest}
+          />
+        );
+      })}
     </div>
   );
 };
